@@ -109,6 +109,8 @@ const SliceForm = ({
                         totalPaid
                     ] = await sliceContract?.getSliceInfo();
 
+                    console.log(sliceContract);
+
                     const loggerAddress = await paysliceContract.loggerAddress();
 
                     const loggerContract = createContract(loggerAddress, loggerInterface.abi, signer);
@@ -660,6 +662,9 @@ const Slice = () => {
     const params = new URLSearchParams(window.location.href);
     const contractAddress = params.get("cad");
     const paymentId = params.get("pid");
+
+    console.log(contractAddress, paymentId);
+
 
     if (!contractAddress) {
         return "Invalid Slice"
