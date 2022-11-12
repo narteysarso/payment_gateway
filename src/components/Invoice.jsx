@@ -96,8 +96,8 @@ const SliceForm = ({
 
     useEffect(() => {
         (async () => {
-            setLoading(true);
-            try {
+            // setLoading(true);
+            // try {
                 if (!sliceContract) {
                     setError(true);
                 } else {
@@ -133,11 +133,11 @@ const SliceForm = ({
                         amountLeft: totalReceivable.sub(totalPaid),
                     });
                 }
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setLoading(false);
-            }
+            // } catch (error) {
+            //     console.log(error);
+            // } finally {
+            //     setLoading(false);
+            // }
         })();
     }, [sliceContract, signer, paysliceContract]);
 
