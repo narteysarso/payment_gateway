@@ -1,6 +1,6 @@
 import { signERC2612Permit } from 'eth-permit';
 import { approve, createContract, createTokenContract } from '../helpers';
-import forwarderAbi from "../interface/Forwarder.json"
+import forwarderAbi from "../interface/forwarder.json"
 import { signMetaTxRequest } from '../helpers/signer';
 import { ERC20PermitTokens, TOKENS } from '../constants/invoicedata';
 
