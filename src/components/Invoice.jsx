@@ -663,7 +663,8 @@ const Slice = () => {
     const contractAddress = params.get("cad");
     const paymentId = params.get("pid");
 
-    console.log(contractAddress, paymentId);
+    alert(contractAddress)
+    alert(paymentId);
 
 
     if (!contractAddress) {
