@@ -60,7 +60,6 @@ const SliceForm = ({
     const [isError, setError] = useState(false);
     const [sliceInfo, setSliceInfo] = useState([]);
     const { address } = useAccount();
-    const [modal, contextHolder] = Modal.useModal();
     const { data: signer } = useSigner();
     const { chain } = useNetwork();
     const [form] = Form.useForm();
@@ -119,6 +118,7 @@ const SliceForm = ({
                     const loggerContract = createContract(loggerAddress, loggerInterface.abi, signer);
 
                     const info = await loggerContract.queryFilter(loggerContract.filters.SliceCreated());
+                    console.log(info);
 
                     const userdata = JSON.parse(ethers.utils.toUtf8String(info[0].args.userdata))[0];
 
@@ -128,7 +128,7 @@ const SliceForm = ({
                     );
                     const targetTokenDecimals = await tokenContract.decimals();
 
-                    setSliceInfo({
+                    setSliceInfo((prev) => ({
                         name: userdata?.name,
                         description: userdata?.slug?.current,
                         targetToken,
@@ -136,7 +136,7 @@ const SliceForm = ({
                         recipientAddress,
                         totalReceivable,
                         amountLeft: totalReceivable.sub(totalPaid),
-                    });
+                    }));
                 }
             } catch (error) {
                 console.log(error);
@@ -258,7 +258,6 @@ const SliceForm = ({
                     totalReceivable,
                     recipientAddress: sliceInfo?.recipientAddress,
                 }}
-
                 form={form}
             >
                 <Form.Item label="Payer Address" name={"payerAddress"}>
