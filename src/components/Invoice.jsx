@@ -137,7 +137,10 @@ const SliceForm = ({
                         amountLeft: totalReceivable.sub(totalPaid),
                     }));
 
+                    form.setFieldValue("name", userdata?.name);
                     form.setFieldValue("description", userdata?.slug?.current);
+                    form.setFieldValue("totalReceivable", totalReceivable);
+                    form.setFieldValue("recipientAddress", recipientAddress);
                 }
             } catch (error) {
                 console.log(error);
