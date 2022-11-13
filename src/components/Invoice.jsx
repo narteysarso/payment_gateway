@@ -276,6 +276,7 @@ const SliceForm = ({
                 <Form.Item
                     label="Amount "
                     name={"totalReceivable"}
+                    initialValue={totalReceivable}
                 >
                     <Input
                         addonBefore={
@@ -297,7 +298,9 @@ const SliceForm = ({
                         size="medium"
                     />
                 </Form.Item>
-                <Form.Item label="Description" name={"description"}>
+                <Form.Item label="Description" 
+                name={"description"}
+                initialValue={sliceInfo?.description}>
                     <TextArea
                         value={""}
                         placeholder="Description"
