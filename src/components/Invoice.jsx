@@ -108,11 +108,6 @@ const SliceForm = ({
                         totalPaid
                     ] = await sliceContract?.getSliceInfo();
 
-                    console.log( targetToken,
-                        recipientAddress,
-                        totalReceivable,
-                        totalPaid);
-
                     const loggerAddress = await paysliceContract.loggerAddress();
 
                     const loggerContract = createContract(loggerAddress, loggerInterface.abi, signer);
@@ -139,7 +134,10 @@ const SliceForm = ({
 
                     form.setFieldValue("name", userdata?.name);
                     form.setFieldValue("description", userdata?.slug?.current);
-                    form.setFieldValue("totalReceivable", totalReceivable);
+                    form.setFieldValue("totalReceivable", ethers.utils.formatUnits(
+                        totalReceivable.sub(totalPaid) || 0,
+                        targetTokenDecimals
+                    ));
                     form.setFieldValue("recipientAddress", recipientAddress);
                 }
             } catch (error) {
