@@ -109,7 +109,10 @@ const SliceForm = ({
                         totalPaid
                     ] = await sliceContract?.getSliceInfo();
 
-                    console.log(sliceContract);
+                    console.log( targetToken,
+                        recipientAddress,
+                        totalReceivable,
+                        totalPaid);
 
                     const loggerAddress = await paysliceContract.loggerAddress();
 
