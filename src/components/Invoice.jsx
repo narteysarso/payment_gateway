@@ -663,10 +663,6 @@ const Slice = () => {
     const contractAddress = params.get("cad");
     const paymentId = params.get("pid");
 
-    alert(contractAddress)
-    alert(paymentId);
-
-
     if (!contractAddress) {
         return "Invalid Slice"
     }
