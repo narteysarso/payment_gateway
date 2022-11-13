@@ -118,7 +118,6 @@ const SliceForm = ({
                     const loggerContract = createContract(loggerAddress, loggerInterface.abi, signer);
 
                     const info = await loggerContract.queryFilter(loggerContract.filters.SliceCreated());
-                    console.log(info);
 
                     const userdata = JSON.parse(ethers.utils.toUtf8String(info[0].args.userdata))[0];
 
@@ -137,6 +136,8 @@ const SliceForm = ({
                         totalReceivable,
                         amountLeft: totalReceivable.sub(totalPaid),
                     }));
+
+                    form.setFieldValue("description", userdata?.slug?.current);
                 }
             } catch (error) {
                 console.log(error);
@@ -209,7 +210,6 @@ const SliceForm = ({
                     [inputToken, data.targetToken],
                     data.payToken, {
                     onStateChange: (msg) => {
-                        console.log(msg);
                         message.info({ content: msg, key: messagekey, duration: 0 });
 
                     }
