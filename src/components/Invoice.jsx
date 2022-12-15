@@ -199,6 +199,21 @@ const SliceForm = ({
                     amountOut :
                     await getAmountInQoute(exchangeContract, ethers.utils.parseEther(amountOut), [inputToken, data.targetToken]);
 
+                console.log(amountIn);
+
+                consoe.log({
+                    sliceContract,
+                    signer,
+                    owner: await signer.getAddress(),
+                    inputToken,
+                    address,
+                    amountOut: ethers.utils.parseEther(amountOut),
+                    amountIn: ethers.utils.parseEther(amountIn),
+                    payer: data.payeruid,
+                    path: [inputToken, data.targetToken],
+                    payToken: data.payToken,
+                })
+
                 await makePayment(
                     sliceContract,
                     signer,
