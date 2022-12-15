@@ -201,7 +201,7 @@ const SliceForm = ({
 
                 console.log(amountIn);
 
-                consoe.log({
+                console.log({
                     sliceContract,
                     signer,
                     owner: await signer.getAddress(),
