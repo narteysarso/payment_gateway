@@ -237,7 +237,7 @@ const SliceForm = ({
     };
 
     if (isError || !sliceInfo) {
-        return "Error page";
+        return isError || "Error page";
     }
 
     if (isLoading) {
