@@ -232,6 +232,8 @@ const SliceForm = ({
                 })
             }
 
+            console.log(sliceContract);
+
             const [, , ,
                 totalReceivable,
                 totalPaid
