@@ -146,7 +146,7 @@ const SliceForm = ({
                 setLoading(false);
             }
         })();
-    }, [sliceContract, signer, paysliceContract]);
+    }, [sliceContract, signer, paysliceContract, form]);
 
     useEffect(() => {
         (async () => {
@@ -186,8 +186,9 @@ const SliceForm = ({
     const onFinish = async (data) => {
         const messagekey = 'updatable';
         try {
+            
             setSubmitting(true);
-
+            
             if (!sliceContract) {
                 return;
             }
@@ -195,9 +196,28 @@ const SliceForm = ({
             for (let i = 0; i < data.Tokens.length; i++) {
                 const { amountOut, inputToken } = data.Tokens[i];
 
-                const amountIn = (inputToken === data.targetToken) ?
+                
+
+                console.log(exchangeContract, ethers.utils.parseEther(amountOut), [inputToken, data.targetToken || sliceInfo.targetToken]);
+
+                const amountIn = (inputToken === (data.targetToken || sliceInfo.targetToken)) ?
                     amountOut :
-                    await getAmountInQoute(exchangeContract, ethers.utils.parseEther(amountOut), [inputToken, data.targetToken]);
+                    await getAmountInQoute(exchangeContract, ethers.utils.parseEther(amountOut),  [inputToken, data.targetToken || sliceInfo.targetToken]);
+
+                console.log(amountIn);
+
+                console.log({
+                    sliceContract,
+                    signer,
+                    owner: await signer.getAddress(),
+                    inputToken,
+                    address,
+                    amountIn: ethers.utils.parseEther(amountOut),
+                    amountOut: ethers.utils.parseEther(amountIn),
+                    payer: data.payeruid,
+                    path:  [inputToken, data.targetToken || sliceInfo.targetToken],
+                    payToken: data.payToken
+                });
 
                 await makePayment(
                     sliceContract,
@@ -208,7 +228,7 @@ const SliceForm = ({
                     ethers.utils.parseEther(amountOut),
                     ethers.utils.parseEther(amountIn),
                     data.payeruid,
-                    [inputToken, data.targetToken],
+                    [inputToken, data.targetToken || sliceInfo.targetToken],
                     data.payToken, {
                     onStateChange: (msg) => {
                         message.info({ content: msg, key: messagekey, duration: 0 });
@@ -237,7 +257,7 @@ const SliceForm = ({
     };
 
     if (isError || !sliceInfo) {
-        return "Error page";
+        return isError || "Error page";
     }
 
     if (isLoading) {
@@ -299,9 +319,9 @@ const SliceForm = ({
                         size="medium"
                     />
                 </Form.Item>
-                <Form.Item label="Description" 
-                name={"description"}
-                initialValue={sliceInfo?.description}>
+                <Form.Item label="Description"
+                    name={"description"}
+                    initialValue={sliceInfo?.description}>
                     <TextArea
                         value={""}
                         placeholder="Description"
